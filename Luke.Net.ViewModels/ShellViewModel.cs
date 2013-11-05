@@ -12,6 +12,8 @@ namespace Luke.Net.ViewModels
         private readonly SimpleContainer _container;
         private readonly IIndexService _indexService;
 
+        private string _indexPath;
+
         public ShellViewModel(IWindowManager windowManager, 
             SimpleContainer container, 
             IIndexService indexService,
@@ -53,6 +55,8 @@ namespace Luke.Net.ViewModels
                 return;
             }
 
+            IndexPath = vm.PathToIndex;
+
             vm.TryClose();
         }
 
@@ -67,6 +71,16 @@ namespace Luke.Net.ViewModels
             base.OnViewLoaded(view);
 
             ShowOpenIndexModal();
+        }
+
+        public string IndexPath
+        {
+            get { return _indexPath; }
+            set
+            {
+                _indexPath = value;
+                NotifyOfPropertyChange(() => IndexPath);
+            }
         }
     }
 }
